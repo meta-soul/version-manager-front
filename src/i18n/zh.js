@@ -5,6 +5,8 @@ export default {
         description: '说明',
         operations: '操作',
         upgrade: '升级',
-        rollback: '回滚'
+        rollback: '回滚',
+        currentVersion: '版本',
+        status: '当前状态',
     }
 }

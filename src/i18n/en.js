@@ -5,6 +5,8 @@ export default {
         description: 'Description',
         operations: 'Operations',
         upgrade: 'Upgrade',
-        rollback: 'Rollback'
+        rollback: 'Rollback',
+        currentVersion: 'current version',
+        status: 'status',
     }
 }

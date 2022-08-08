@@ -2,8 +2,8 @@
   <div class="versionUpgrade">
     <div class="mainBox">
       <div class="versionStatus">
-        <p>版本号：</p>
-        <p>当前状态：</p>
+        <p>{{ $t('versionUpdate.currentVersion') + ':' }}</p>
+        <p>{{ $t('versionUpdate.status') + ':' }}</p>
       </div>
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="version" :label="$t('versionUpdate.version')" min-width="10%" />
@@ -65,7 +65,7 @@ export default {
   min-height: 100%;
   opacity: 0.85;
   background: url(../assets/logo.png) rgba(0, 0, 0, 1) no-repeat center center;
-  background-size: 60%;
+  background-size: 80%;
   position: absolute;
   left: 0;
   top: 0;
@@ -75,8 +75,12 @@ export default {
 .mainBox {
   width: 60%;
   margin-top: 10%;
+  box-shadow: -6px 6px 20px 10px grey;
 }
 
+.versionStatus {
+  padding-left: 10px;
+}
 
 .versionStatus p {
   color: #fff;
