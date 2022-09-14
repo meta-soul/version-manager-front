@@ -5,9 +5,7 @@
 import VersionUpgrade from '../components/VersionUpgrade.vue'
 export default {
     data() {
-        return {
-
-        }
+        return {}
     },
     components: {
         VersionUpgrade
