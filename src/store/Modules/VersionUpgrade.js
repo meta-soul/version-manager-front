@@ -2,7 +2,9 @@ import axios from 'axios'
 import i18n from '../../i18n/index'
 console.log("i18n,i18n", i18n)
 const state = {
-    curVersion: '2',
+    curVersion: '0.1.2',
+    curStatus: 'deployed',
+    statusFailedText: 'Install complete',
     tableData: [
         // {
         //     version: 'v1.1.5',
@@ -42,7 +44,6 @@ const mutations = {
 }
 const getters = {}
 const actions = {
-    // http://registry-dev.dmetasoul.com/api/api/alphaide/listVersions 
     getVersionsList({ dispatch, commit, state }) {
         console.log("获取版本记录")
         axios({
@@ -53,6 +54,22 @@ const actions = {
             if (res.data.code == 200) {
                 console.log('1111res', res.data)
                 commit('initTableData', res.data)
+            }
+        }).catch((error) => {
+            console.log(error)
+        })
+    },
+    getCurVersions({ dispatch, commit, state }) {
+        console.log("获取版本记录")
+        axios({
+            method: "get",
+            url: '/version-manager/api/v1/version/checkstatus'
+        }).then((res) => {
+            if (res.data.code == 200) {
+                state.curVersion = res.data.data.version
+                state.curStatus = res.data.data.status
+                state.statusFailedText = res.data.data.description
+                console.log('1111res', res.data)
             }
         }).catch((error) => {
             console.log(error)

@@ -1,0 +1,55 @@
+
+html,
+body,
+#app {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+
+.versionUpgrade[data-v-a62a4672] {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(62, 62, 62);
+}
+.mainBox[data-v-a62a4672] {
+  width: 60%;
+  margin-bottom: 5%;
+  box-shadow: -6px 6px 20px 10px grey;
+}
+.versionStatus[data-v-a62a4672] {
+  padding: 0 0 10px 10px;
+}
+.versionStatus p[data-v-a62a4672],
+.versionStatus span[data-v-a62a4672],
+.versionStatus div[data-v-a62a4672] {
+  color: #fff;
+  font-size: 13px;
+}
+.el-table[data-v-a62a4672] .el-table__cell {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+.el-table[data-v-a62a4672] th.el-table__cell {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+.el-table[data-v-a62a4672] .el-table-fixed-column--right {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* 表头字体颜色 */
+.el-table[data-v-a62a4672] th.el-table__cell > .cell {
+  color: rgb(64, 158, 255) !important;
+}
+.el-table[data-v-a62a4672] .cell {
+  color: white;
+}
+.el-table[data-v-a62a4672] tr:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+

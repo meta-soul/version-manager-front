@@ -2,45 +2,26 @@
   <div class="versionUpgrade">
     <div class="mainBox">
       <div class="versionStatus">
-        <p>{{ $t("versionUpdate.currentVersion") + ":" }}</p>
-        <p>{{ $t("versionUpdate.status") + ":" }}</p>
+        <p>{{ $t("versionUpdate.currentVersion") + ": " + this.curVersion }}</p>
+        <div>
+          {{ $t("versionUpdate.status") + ": " }}
+          <span v-if="this.curStatus == 'deployed'"> 成功</span>
+          <span v-else>失败</span>
+          <p v-if="this.curStatus != 'deployed'">
+            原因：{{ statusFailedText }}
+          </p>
+        </div>
       </div>
       <el-table :data="tableData" style="width: 100%">
-        <el-table-column
-          prop="version"
-          :label="$t('versionUpdate.version')"
-          min-width="10%"
-        />
-        <el-table-column
-          prop="updateDate"
-          :label="$t('versionUpdate.date')"
-          min-width="25%"
-        />
-        <el-table-column
-          prop="description"
-          :label="$t('versionUpdate.description')"
-          min-width="40%"
-        />
-        <el-table-column
-          fixed="right"
-          :label="$t('versionUpdate.operations')"
-          min-width="20%"
-        >
+        <el-table-column prop="version" :label="$t('versionUpdate.version')" min-width="10%" />
+        <el-table-column prop="releaseDate" :label="$t('versionUpdate.date')" min-width="25%" :formatter="formatUtcTime" />
+        <el-table-column prop="description" :label="$t('versionUpdate.description')" min-width="40%" />
+        <el-table-column fixed="right" :label="$t('versionUpdate.operations')" min-width="20%">
           <template #default="scope">
-            <el-button
-              v-if="curVersion > scope.row.version"
-              @click="versionUpdate(scope.row, 'rollback')"
-              type="primary"
-              size="small"
-              >{{ this.$t("versionUpdate.rollback") }}</el-button
-            >
-            <el-button
-              v-show="curVersion < scope.row.version"
-              @click="versionUpdate(scope.row, 'upgrade')"
-              type="primary"
-              size="small"
-              >{{ this.$t("versionUpdate.upgrade") }}</el-button
-            >
+            <!-- {{Number(curVersion.split('.').join(''))}}
+            {{Number((scope.row.version).split('.').join(''))}} -->
+            <el-button v-if="Number(curVersion.split('.').join('')) == Number((scope.row.version).split('.').join(''))+1" @click="versionUpdate(scope.row, 'rollback')" type="primary" size="small">{{ this.$t("versionUpdate.rollback") }}</el-button>
+            <el-button v-if="Number(curVersion.split('.').join('')) == Number((scope.row.version).split('.').join(''))-1" @click="versionUpdate(scope.row, 'upgrade')" type="primary" size="small">{{ this.$t("versionUpdate.upgrade") }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -63,10 +44,18 @@ export default {
       curVersion: (state) => {
         return state.VersionUpgrade.curVersion;
       },
+      curStatus: (state) => {
+        return state.VersionUpgrade.curStatus;
+      },
+      statusFailedText: (state) => {
+        //失败原因
+        return state.VersionUpgrade.statusFailedText;
+      },
     }),
   },
   created() {
     this.getVersionsList();
+    this.getCurVersions();
     console.log("q234789");
   },
   methods: {
@@ -74,6 +63,7 @@ export default {
       "versionUpgrade",
       "versionRollback",
       "getVersionsList",
+      "getCurVersions",
     ]),
     versionUpdate(row, type) {
       if (type == "upgrade") {
@@ -81,6 +71,23 @@ export default {
       } else if (type == "rollback") {
         this.versionRollback(row);
       }
+    },
+    formatUtcTime(row) {
+      //格式化utc时间
+      let date = new Date(row.releaseDate);
+      return (
+        date.getFullYear() +
+        "-" +
+        (date.getMonth() + 1) +
+        "-" +
+        (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
+        " " +
+        date.getHours() +
+        ":" +
+        date.getMinutes() +
+        ":" +
+        date.getSeconds()
+      );
     },
   },
 };
@@ -105,10 +112,12 @@ export default {
 }
 
 .versionStatus {
-  padding-left: 10px;
+  padding: 0 0 10px 10px;
 }
 
-.versionStatus p {
+.versionStatus p,
+.versionStatus span,
+.versionStatus div {
   color: #fff;
   font-size: 13px;
 }

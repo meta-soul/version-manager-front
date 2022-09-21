@@ -1,7 +1,8 @@
 import axios from "axios";
 import getRsaCode from './getRsaCode';
 
-axios.defaults.baseURL = '/api';
+// axios.defaults.baseURL = '/api';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 // axios.defaults.headers.common['WWW-Authenticate'] = true;
 axios.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么

@@ -2,10 +2,11 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin//包体积分析工具
 
 module.exports = {
-  publicPath: '/',
-  outputDir: 'dist', // 构建输出目录
+  publicPath: '/version-manager/',
+  outputDir: 'static', // 构建输出目录
   assetsDir: 'assets', // 静态资源目录 (js, css, img, fonts)
   lintOnSave: false,
+  // indexPath: 'index.html',
   devServer: {
     open: true,
     host: 'localhost',
