@@ -1,5 +1,6 @@
 <template>
   <div class="versionUpgrade">
+    <p>test</p>
     <div class="mainBox">
       <div class="versionStatus">
         <p>{{ $t("versionUpdate.currentVersion") + ": " + this.curVersion }}</p>
